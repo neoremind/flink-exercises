@@ -2,6 +2,8 @@ package com.neoremind.kafka.examples;
 
 import com.google.common.io.Resources;
 
+import com.neoremind.kafka.examples.utils.DateUtils;
+
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -38,7 +40,7 @@ public class SimpleConsumer implements Constants {
         while (true) {
           ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
           for (ConsumerRecord<String, String> record : records) {
-            log.info("partition = {}, offset = {}, key = {}, value = {}", record.partition(), record.offset(), record.key(), record.value());
+            log.info("partition = {}, ts = {}, offset = {}, key = {}, value = {}", record.partition(), DateUtils.formatTimestamp(record.timestamp()), record.offset(), record.key(), record.value());
           }
         }
       }

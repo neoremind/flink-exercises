@@ -19,13 +19,14 @@
         <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <java.version>1.7</java.version>
-        <source.version>1.7</source.version>
-        <target.version>1.7</target.version>
+        <java.version>1.8</java.version>
+        <source.version>1.8</source.version>
+        <target.version>1.8</target.version>
         <junit.version>4.11</junit.version>
         <commons.lang3.version>3.2.1</commons.lang3.version>
         <commons.collections.version>3.2.1</commons.collections.version>
         <flink.version>1.7.2</flink.version>
+        <kafka.version>0.10.2.1</kafka.version>
     </properties>
 
     <dependencyManagement>
@@ -81,13 +82,13 @@
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
-                <version>0.10.0.1</version>
+                <version>0.10.2.1</version>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
-                <version>0.10.0.1</version>
+                <version>0.10.2.1</version>
             </dependency>
 
             <dependency>
@@ -106,6 +107,12 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>1.7.8</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.10.1</version>
             </dependency>
 
             <!-- test dependencies -->
