@@ -2,6 +2,9 @@ package com.neoremind.kafka.examples;
 
 import com.google.common.io.Resources;
 
+import com.neoremind.kafka.examples.utils.id.generator.FileSystemIdPersister;
+import com.neoremind.kafka.examples.utils.id.generator.IdGenerator;
+
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -54,22 +57,23 @@ import lombok.extern.slf4j.Slf4j;
  * @author xu.zhang
  */
 @Slf4j
-public class SimpleProducer implements Names {
+public class ProducerKeyed implements Constants {
 
   public static final int MSG_COUNT = 10;
 
   private static Random RANDOM = new Random(0);
 
+  private static IdGenerator idGenerator = new IdGenerator(new FileSystemIdPersister(ID_FILE_PATH));
+
   public static void main(String[] args) throws IOException, InterruptedException {
     try (InputStream props = Resources.getResource("producer.properties").openStream()) {
       Properties properties = new Properties();
-      // 使用sendWithKey 或者 sendWithKeyCallback，需要启用Partitioner
-      // properties.setProperty("partitioner.class", MyPartitioner.class.getName());
+      properties.setProperty("partitioner.class", MyPartitioner.class.getName());
       properties.load(props);
       try (KafkaProducer<String, String> producer = new KafkaProducer<>(properties)) {
-        // sendWithKey(producer);
+        System.out.println(producer.partitionsFor(TOPIC_NAME));
+        sendWithKey(producer);
         // sendWithKeyCallback(producer);
-        sendWithoutKey(producer);
       }
     }
   }
@@ -79,15 +83,7 @@ public class SimpleProducer implements Names {
       producer.send(new ProducerRecord<>(
           TOPIC_NAME,
           String.valueOf(RANDOM.nextInt(100)),
-          String.format("{\"type\":\"test\", \"t\":%.3f, \"k\":%d}", System.nanoTime() * 1e-9, i)));
-    }
-  }
-
-  private static void sendWithoutKey(KafkaProducer<String, String> producer) {
-    for (int i = 0; i < MSG_COUNT; i++) {
-      producer.send(new ProducerRecord<String, String>(
-          TOPIC_NAME,
-          String.format("{\"type\":\"test\", \"t\":%.3f, \"k\":%d}", System.nanoTime() * 1e-9, i)));
+          String.format("%s-%.3f-%d", idGenerator.getNext(), System.nanoTime() * 1e-9, i)));
     }
   }
 
@@ -96,7 +92,7 @@ public class SimpleProducer implements Names {
       producer.send(new ProducerRecord<String, String>(
               TOPIC_NAME,
               String.valueOf(RANDOM.nextInt(100)),
-              String.format("{\"type\":\"test\", \"t\":%.3f, \"k\":%d}", System.nanoTime() * 1e-9, i)),
+              String.format("%s-%.3f-%d", idGenerator.getNext(), System.nanoTime() * 1e-9, i)),
           new Callback() {
             @Override
             public void onCompletion(RecordMetadata metadata, Exception e) {

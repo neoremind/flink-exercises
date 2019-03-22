@@ -2,15 +2,13 @@ package com.neoremind.kafka.examples;
 
 import com.google.common.io.Resources;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.PartitionInfo;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +25,7 @@ import static java.util.Arrays.asList;
  * @author xu.zhang
  */
 @Slf4j
-public class SimpleConsumer implements Constants {
+public class SimpleConsumerPartitionsFor implements Constants {
 
   public static void main(String[] args) throws IOException {
     try (InputStream props = Resources.getResource("consumer.properties").openStream()) {
@@ -35,11 +33,8 @@ public class SimpleConsumer implements Constants {
       properties.load(props);
       try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties)) {
         kafkaConsumer.subscribe(asList(TOPIC_NAME));
-        while (true) {
-          ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
-          for (ConsumerRecord<String, String> record : records) {
-            log.info("partition = {}, offset = {}, key = {}, value = {}", record.partition(), record.offset(), record.key(), record.value());
-          }
+        for (PartitionInfo e : kafkaConsumer.partitionsFor(TOPIC_NAME)) {
+          log.info("{}", e);
         }
       }
     }

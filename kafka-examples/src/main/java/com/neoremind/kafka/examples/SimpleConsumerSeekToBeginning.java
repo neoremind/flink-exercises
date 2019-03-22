@@ -10,7 +10,6 @@ import org.apache.kafka.common.TopicPartition;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.List;
 import java.util.Properties;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,14 +26,15 @@ import static java.util.Arrays.asList;
  * @author xu.zhang
  */
 @Slf4j
-public class SimpleConsumer implements Constants {
+public class SimpleConsumerSeekToBeginning implements Constants {
 
   public static void main(String[] args) throws IOException {
     try (InputStream props = Resources.getResource("consumer.properties").openStream()) {
       Properties properties = new Properties();
       properties.load(props);
       try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties)) {
-        kafkaConsumer.subscribe(asList(TOPIC_NAME));
+        // set offset
+        seek(kafkaConsumer);
         while (true) {
           ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
           for (ConsumerRecord<String, String> record : records) {
@@ -43,5 +43,15 @@ public class SimpleConsumer implements Constants {
         }
       }
     }
+  }
+
+  private static void seek(KafkaConsumer<String, String> kafkaConsumer) {
+    Collection<TopicPartition> partitionCollection = asList(
+        new TopicPartition(TOPIC_NAME, 0),
+        new TopicPartition(TOPIC_NAME, 1),
+        new TopicPartition(TOPIC_NAME, 2)
+    );
+    kafkaConsumer.assign(partitionCollection);
+    kafkaConsumer.seekToBeginning(partitionCollection);
   }
 }

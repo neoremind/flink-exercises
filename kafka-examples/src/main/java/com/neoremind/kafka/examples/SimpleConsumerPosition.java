@@ -5,6 +5,7 @@ import com.google.common.io.Resources;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.PartitionInfo;
 import org.apache.kafka.common.TopicPartition;
 
 import java.io.IOException;
@@ -27,21 +28,35 @@ import static java.util.Arrays.asList;
  * @author xu.zhang
  */
 @Slf4j
-public class SimpleConsumer implements Constants {
+public class SimpleConsumerPosition implements Constants {
 
   public static void main(String[] args) throws IOException {
     try (InputStream props = Resources.getResource("consumer.properties").openStream()) {
       Properties properties = new Properties();
       properties.load(props);
       try (KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties)) {
-        kafkaConsumer.subscribe(asList(TOPIC_NAME));
-        while (true) {
-          ConsumerRecords<String, String> records = kafkaConsumer.poll(100);
-          for (ConsumerRecord<String, String> record : records) {
-            log.info("partition = {}, offset = {}, key = {}, value = {}", record.partition(), record.offset(), record.key(), record.value());
-          }
+        // set offset
+        seek(kafkaConsumer);
+        for (PartitionInfo e : kafkaConsumer.partitionsFor(TOPIC_NAME)) {
+          // Get the last committed offset for the given partition
+          log.info("{} => {}", e.partition(), kafkaConsumer.position(new TopicPartition(TOPIC_NAME, e.partition())));
         }
       }
     }
+  }
+
+  /**
+   * 设置的offset是闭区间，包含这个位点。
+   */
+  private static void seek(KafkaConsumer<String, String> kafkaConsumer) {
+    Collection<TopicPartition> partitionCollection = asList(
+        new TopicPartition(TOPIC_NAME, 0),
+        new TopicPartition(TOPIC_NAME, 1),
+        new TopicPartition(TOPIC_NAME, 2)
+    );
+    kafkaConsumer.assign(partitionCollection);
+    kafkaConsumer.seek(((List<TopicPartition>) partitionCollection).get(0), 25);
+    kafkaConsumer.seek(((List<TopicPartition>) partitionCollection).get(1), 25);
+    kafkaConsumer.seek(((List<TopicPartition>) partitionCollection).get(2), 23);
   }
 }
