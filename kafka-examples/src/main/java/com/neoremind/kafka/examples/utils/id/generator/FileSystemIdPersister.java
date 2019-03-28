@@ -4,8 +4,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.io.Files;
 
-import com.sun.istack.internal.Nullable;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -34,7 +32,7 @@ public class FileSystemIdPersister implements IdPersister {
   }
 
   @Override
-  public @Nullable Integer load() {
+  public Integer load() {
     try {
       String content = Files.readFirstLine(new File(filePath), Charset.defaultCharset());
       return Integer.parseInt(content);

@@ -54,6 +54,24 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-filesystem_2.11</artifactId>
         </dependency>
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-library</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -96,15 +114,17 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.neoremind.flink.examples.stream.wordcount.WordCount</mainClass>
-                            <mainClass>com.neoremind.flink.examples.stream.socket.SocketWindowWordCount</mainClass>
-                            <mainClass>com.neoremind.flink.examples.stream.kafka.KafkaSourceWordCount</mainClass>
-                            <mainClass>com.neoremind.flink.examples.stream.windowing.WindowWordCount</mainClass>
-                            <mainClass>com.neoremind.flink.examples.stream.windowing.SessionWindowing</mainClass>
+                            <!--<mainClass>com.neoremind.flink.examples.stream.wordcount.WordCount</mainClass>-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.socket.SocketWindowWordCount</mainClass>-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.kafka.KafkaSourceWordCount</mainClass>-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.windowing.WindowWordCount</mainClass>-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.windowing.SessionWindowing</mainClass>-->
                             <!--<mainClass>com.neoremind.flink.examples.stream.windowing.GroupedProcessingTimeWindowExample</mainClass>-->
-                            <mainClass>com.neoremind.flink.examples.stream.windowing.TopSpeedWindowing</mainClass>
-                            <mainClass>com.neoremind.flink.examples.stream.sideoutput.SideOutputExample</mainClass>
-                            <mainClass>com.neoremind.flink.examples.stream.join.WindowJoin</mainClass>
+                            <!--<mainClass>com.neoremind.flink.examples.stream.windowing.TopSpeedWindowing</mainClass>-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.sideoutput.SideOutputExample</mainClass>-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.join.WindowJoin</mainClass>-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.watermark.StreamingWindowWatermark</mainClass>-->
+                            <mainClass>com.neoremind.flink.examples.stream.watermark.StreamingWindowWatermarkAllowedLateness</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

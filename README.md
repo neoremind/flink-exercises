@@ -84,3 +84,11 @@ root@hadoop-master:~/flink-1.7.2# hdfs dfs -cat /user/root/output/session.window
 ./bin/flink run /root/flink-examples-jar-with-dependencies.jar \
             -c com.neoremind.flink.examples.stream.join.WindowJoin
 ```
+
+## watermark
+
+https://blog.csdn.net/xu470438000/article/details/83271123
+https://blog.csdn.net/xorxos/article/details/80715113
+https://blog.csdn.net/a6822342/article/details/78064815
+https://yq.aliyun.com/articles/666056
+http://www.whitewood.me/2018/06/01/Flink-Watermark-%E6%9C%BA%E5%88%B6%E6%B5%85%E6%9E%90/
