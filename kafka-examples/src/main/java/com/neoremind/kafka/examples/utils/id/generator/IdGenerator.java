@@ -23,7 +23,7 @@ public class IdGenerator {
   }
 
   public Integer getNext() {
-    int result = id.getAndIncrement();
+    int result = id.incrementAndGet();
     idPersister.save(result);
     return result;
   }

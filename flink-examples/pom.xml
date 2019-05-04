@@ -12,20 +12,11 @@
     <artifactId>flink-examples</artifactId>
     <packaging>jar</packaging>
 
-    <properties>
-        <spring.version>4.1.6.RELEASE</spring.version>
-        <junit.version>4.11</junit.version>
-        <protostuff.version>1.0.7</protostuff.version>
-        <jackson.version>1.9.13</jackson.version>
-        <commons.lang.version>2.6</commons.lang.version>
-        <commons.lang3.version>3.2.1</commons.lang3.version>
-        <commons.beanutils.version>1.8.3</commons.beanutils.version>
-        <commons.io.version>2.4</commons.io.version>
-        <commons.collections.version>3.2.1</commons.collections.version>
-        <commons-pool2.version>2.2</commons-pool2.version>
-    </properties>
-
     <dependencies>
+        <dependency>
+            <groupId>com.neoremind</groupId>
+            <artifactId>flink-exercises-common</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-java</artifactId>
@@ -58,7 +49,36 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-runtime</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-collectionschema</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.protostuff</groupId>
+            <artifactId>protostuff-compiler</artifactId>
+        </dependency>
         <!-- test dependencies -->
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -112,21 +132,23 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <!--<mainClass>com.neoremind.flink.examples.stream.wordcount.WordCount</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.socket.SocketWindowWordCount</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.kafka.KafkaSourceWordCount</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.windowing.WindowWordCount</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.windowing.SessionWindowing</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.windowing.GroupedProcessingTimeWindowExample</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.windowing.TopSpeedWindowing</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.sideoutput.SideOutputExample</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.join.WindowJoin</mainClass>-->
-                            <!--<mainClass>com.neoremind.flink.examples.stream.watermark.StreamingWindowWatermark</mainClass>-->
-                            <mainClass>com.neoremind.flink.examples.stream.watermark.StreamingWindowWatermarkAllowedLateness</mainClass>
-                        </manifest>
-                    </archive>
+                    <!--<archive>-->
+                        <!--<manifest>-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.wordcount.WordCount</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.socket.SocketWindowWordCount</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.kafka.KafkaSourceWordCount</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.kafka.KafkaSourceEventTimeWordCountordCount</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.windowing.WindowWordCount</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.windowing.SessionWindowing</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.windowing.GroupedProcessingTimeWindowExample</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.windowing.TopSpeedWindowing</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.sideoutput.SideOutputExample</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.join.WindowJoin</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.watermark.StreamingWindowWatermark</mainClass>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<mainClass>com.neoremind.flink.examples.stream.watermark.StreamingWindowWatermarkAllowedLateness</mainClass>&ndash;&gt;-->
+                            <!--<mainClass>com.neoremind.flink.examples.stream.state.StateCheckPointExample</mainClass>-->
+                        <!--</manifest>-->
+                    <!--</archive>-->
                 </configuration>
                 <executions>
                     <execution>

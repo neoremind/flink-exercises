@@ -36,9 +36,11 @@ public class FileSystemIdPersister implements IdPersister {
     try {
       String content = Files.readFirstLine(new File(filePath), Charset.defaultCharset());
       return Integer.parseInt(content);
+    } catch (NumberFormatException e) {
+      return 0;
     } catch (Exception e) {
       Throwables.propagate(e);
-      return null;
+      return 0;
     }
   }
 

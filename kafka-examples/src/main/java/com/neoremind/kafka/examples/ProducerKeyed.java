@@ -59,7 +59,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProducerKeyed implements Constants {
 
-  public static final int MSG_COUNT = 10;
+  public static final int MSG_COUNT = 7200;
 
   private static Random RANDOM = new Random(0);
 
@@ -80,10 +80,18 @@ public class ProducerKeyed implements Constants {
 
   private static void sendWithKey(KafkaProducer<String, String> producer) {
     for (int i = 0; i < MSG_COUNT; i++) {
+//      String content = String.format("%s-%.3f-%d", idGenerator.getNext(), System.nanoTime() * 1e-9, i);
+      String content = idGenerator.getNext() + "";
+      System.out.println(content);
       producer.send(new ProducerRecord<>(
           TOPIC_NAME,
           String.valueOf(RANDOM.nextInt(100)),
-          String.format("%s-%.3f-%d", idGenerator.getNext(), System.nanoTime() * 1e-9, i)));
+          content));
+      try {
+        Thread.sleep(500);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
   }
 

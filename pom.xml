@@ -11,6 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>common</module>
         <module>flink-examples</module>
         <module>kafka-examples</module>
     </modules>
@@ -22,15 +23,24 @@
         <java.version>1.8</java.version>
         <source.version>1.8</source.version>
         <target.version>1.8</target.version>
+        <flink.exercises.version>1.0.0-SNAPSHOT</flink.exercises.version>
         <junit.version>4.11</junit.version>
         <commons.lang3.version>3.2.1</commons.lang3.version>
         <commons.collections.version>3.2.1</commons.collections.version>
         <flink.version>1.7.2</flink.version>
         <kafka.version>0.10.2.1</kafka.version>
+        <hadoop.version>2.7.5</hadoop.version>
+        <protostuff.version>1.6.0</protostuff.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.neoremind</groupId>
+                <artifactId>flink-exercises-common</artifactId>
+                <version>${flink.exercises.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-java</artifactId>
@@ -68,6 +78,18 @@
             </dependency>
 
             <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-common</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.hadoop</groupId>
+                <artifactId>hadoop-hdfs</artifactId>
+                <version>${hadoop.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.16.10</version>
@@ -77,6 +99,22 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>18.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.1</version>
             </dependency>
 
             <dependency>
@@ -113,6 +151,31 @@
                 <groupId>joda-time</groupId>
                 <artifactId>joda-time</artifactId>
                 <version>2.10.1</version>
+            </dependency>
+
+            <!-- protostuff -->
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-core</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-runtime</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-collectionschema</artifactId>
+                <version>${protostuff.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.protostuff</groupId>
+                <artifactId>protostuff-compiler</artifactId>
+                <version>${protostuff.version}</version>
             </dependency>
 
             <!-- test dependencies -->

@@ -29,7 +29,7 @@ import javax.annotation.Nullable;
  * <ul>
  * 1)接收socket数据
  * 2)将每行数据按照逗号分隔，每行数据调用map转换成tuple<String,Long>类型。其中tuple中的第一个元素代表具体的数据，第二行代表数据的eventtime
- * 3)抽取timestamp，生成watermar，允许的最大乱序时间是10s，并打印（key,eventtime,currentMaxTimestamp,watermark）等信息
+ * 3)抽取timestamp，生成watermark，允许的最大乱序时间是10s，并打印（key,eventtime,currentMaxTimestamp,watermark）等信息
  * 4)分组聚合，window窗口大小为3秒，输出（key，窗口内元素个数，窗口内最早元素的时间，窗口内最晚元素的时间，窗口自身开始时间，窗口自身结束时间）
  * </ul>
  */

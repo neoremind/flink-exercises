@@ -5,7 +5,7 @@ package com.neoremind.kafka.examples;
  */
 public interface Constants {
 
-  String TOPIC_NAME = "test-topic1";
+  String TOPIC_NAME = "my-flink-test2";
 
   String ID_FILE_PATH = "/tmp/ids";
 
